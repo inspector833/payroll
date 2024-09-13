@@ -49,11 +49,11 @@
                     <th>Staff Name</th>
                     <th>Department</th>
                     <th>Photo</th>
-                    <th>Basic Salary</th>
-                    <th>Salary</th>
+                    <th>Single Spine Monthly Salary</th>
+                    <th>Retention Premium</th>
                     <th>Allowance</th>
                     <th>Tax</th>
-                    <th>Total</th>
+                    <th>Net Salary</th>
                     <th>Paid On</th>
                     <th>Invoice</th>
                     <th>Action</th>
@@ -64,17 +64,19 @@
                     if(isset($content)):
                     $i=1; 
                     foreach($content as $cnt): 
+                      $net = $cnt['single_spine'] + $cnt['retention'] +  $cnt['allowance'];
+                      $total = $net - (($cnt['tax']/100) * $net);
                   ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $cnt['staff_name']; ?></td>
+                        <td><?php echo !empty($cnt['first_name']) ? $cnt['first_name'] . ' '  . $cnt['middle_name'] . ' ' . $cnt['last_name'] : $cnt['staff_name']; ?></td>
                         <td><?php echo $cnt['department_name']; ?></td>
                         <td><img src="<?php echo base_url(); ?>uploads/profile-pic/<?php echo $cnt['pic'] ?>" class="img-circle" width="50px" alt="User Image"></td>
-                        <td>GHS<?php echo $cnt['basic_salary']; ?></td>
-                        <td>GHS<?php echo $cnt['department_salary']; ?></td>
+                        <td>GHS<?php echo  number_format($cnt['single_spine'],2); ?></td>
+                        <td>GHS<?php echo number_format($cnt['retention'],2); ?></td>
                         <td>GHS<?php echo $cnt['allowance']; ?></td>
                         <td><?php echo $cnt['tax']; ?>%</td>
-                        <td>GHS<?php echo $cnt['sub_total'] - $cnt['tax_amount']; ?></td>
+                        <td>GHS<?php echo $total; ?></td>
                         <td><?php echo date('Y-m-d', strtotime($cnt['added_on'])); ?></td>
                         <td><a href="<?php echo base_url(); ?>salary-invoice/<?php echo $cnt['id']; ?>" class="btn btn-warning">Invoice</a></td>
                         <td>

@@ -1,3 +1,13 @@
+<?php
+// Assuming this is the session data you're interested in
+$user_type = $this->session->userdata('usertype');
+$email = $this->session->userdata('username'); // replace 'username' with your actual session key
+
+if ($user_type != 2) {
+    redirect('login');
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -62,15 +72,16 @@
 								<li class="user-header">
 									<img src="<?php echo base_url(); ?>assets/dist/img/userav.png" class="img-circle" alt="User Image">
 									<p>
-										Staff
-										<small>Since Nov, 2020</small>
+										<small><?php echo $email; ?></small> <!-- Displaying the user's name -->
+										<small>Since Jan, 2024</small>
 									</p>
+
 								</li>
 								<!-- Menu Footer-->
 								<li class="user-footer">
-									<div class="pull-left">
+									<!-- <div class="pull-left">
 										<a href="#" class="btn btn-default btn-flat">Profile</a>
-									</div>
+									</div> -->
 									<div class="pull-right">
 										<a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat">Sign out</a>
 									</div>

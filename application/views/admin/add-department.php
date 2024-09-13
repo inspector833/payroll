@@ -50,6 +50,11 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">Department Name</label>
                     <input type="text" name="txtdepartment" class="form-control" placeholder="Department Name">
+
+                    <br>
+
+                    <label for="exampleInputPassword1">Salary</label>
+                    <input type="text" name="txtsalary" class="form-control" placeholder="Salary">
                   </div>
                 </div>
                 

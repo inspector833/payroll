@@ -17,6 +17,9 @@
 		if (isset($content)) :
 			$i = 1;
 			foreach ($content as $cnt) :
+				$subTotal = $cnt['single_spine'] + $cnt['retention'] + $cnt['allowance'];
+				$taxAmount =(($cnt['tax'] /100 )*$subTotal);
+				$totalAmount = $subTotal - $taxAmount;
 		?>
   			<!-- Main content -->
   			<section class="invoice" id="invoice">
@@ -24,7 +27,7 @@
   				<div class="row">
   					<div class="col-xs-12">
   						<h2 class="page-header">
-  							Payroll System
+  							Employee Payslip
   							<small class="pull-right">Date: <?php echo date('d-m-Y'); ?></small>
   						</h2>
   					</div>
@@ -35,18 +38,18 @@
   					<div class="col-sm-4 invoice-col">
   						From
   						<address>
-  							<strong>Nano Tech</strong><br>
-  							Bethany<br>
-  							6964 Ralph Street<br>
-  							Website: www.nanotech.com<br>
-  							Email: admin@nanotech.com
+  							<strong>AAMUSTED-K</strong><br>
+  							SUNYANI ROAD<br>
+  							TANOSO<br>
+  							Website: www.aamusted.edu.gh<br>
+  							Email: aamusted@gmail.com
   						</address>
   					</div>
   					<!-- /.col -->
   					<div class="col-sm-4 invoice-col">
   						To
   						<address>
-  							<strong><?php echo $cnt['staff_name']; ?></strong><br>
+						  <strong><?php echo $cnt['middle_name'] ? $cnt['first_name']. ' '. $cnt['middle_name'] . ' '. $cnt['last_name'] : $cnt['first_name']. ' '. $cnt['last_name'] ; ?></strong><br>
   							<?php echo $cnt['city']; ?><br>
   							<?php echo $cnt['state']; ?>, <?php echo $cnt['country']; ?><br>
   							Phone: <?php echo $cnt['mobile']; ?><br>
@@ -70,19 +73,19 @@
   							<thead>
   								<tr>
   									<th>#</th>
-  									<th>Basic Salary</th>
-  									<th>Salary</th>
+  									<th>Single Spine Monthly Salary</th>
+  									<th>Retention Premium</th>
   									<th>Allowance</th>
-  									<th>Sub Total</th>
+  									<th>Gross Pay</th>
   								</tr>
   							</thead>
   							<tbody>
   								<tr>
   									<td>1</td>
-  									<td>GHS <?php echo $cnt['basic_salary']; ?></td>
-  									<td>GHS <?php echo $cnt['calculated_salary'] - $cnt['basic_salary']; ?></td>
+  									<td>GHS <?php echo number_format($cnt['single_spine'],2); ?></td>
+  									<td>GHS <?php echo number_format($cnt['retention'],2); ?></td>
   									<td>GHS <?php echo $cnt['allowance']; ?></td>
-  									<td>GHS <?php echo $cnt['calculated_salary'] + $cnt['allowance']; ?></td>
+  									<td>GHS <?php echo $subTotal; ?></td>
   								</tr>
   							</tbody>
   						</table>
@@ -111,16 +114,16 @@
   						<div class="table-responsive">
   							<table class="table">
   								<tr>
-  									<th style="width:50%">Subtotal:</th>
-  									<td>GHS <?php echo $cnt['calculated_salary'] + $cnt['allowance']; ?></td>
+  									<th style="width:50%">Gross Pay:</th>
+  									<td>GHS <?php echo number_format($subTotal,2); ?></td>
   								</tr>
   								<tr>
   									<th>Tax (<?php echo $cnt['tax']; ?>%)</th>
-									  <td>GHS <?php echo number_format($cnt['tax_amount'], 1); ?></td>
+									  <td>GHS <?php echo number_format($taxAmount,2); ?></td>
 									  </tr>
   								<tr>
-  									<th>Total:</th>
-  									<td>GHS <?php echo ($cnt['calculated_salary'] + $cnt['allowance'])-$cnt['tax_amount']; ?></td>
+  									<th>Net Pay:</th>
+  									<td>GHS <?php echo number_format($totalAmount,2); ?></td>
   								</tr>
   							</table>
   						</div>

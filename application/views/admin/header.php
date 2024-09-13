@@ -38,7 +38,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>EM</b>S</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Employee</b> M S</span>
+      <span class="logo-lg"><b>AAM. Employee</b> M S</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -122,6 +122,19 @@
 
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-th-large"></i> <span>Rank</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url(); ?>add-rank"><i class="fa fa-circle-o"></i> Add Rank</a></li>
+            <li><a href="<?php echo base_url(); ?>manage-rank"><i class="fa fa-circle-o"></i> Manage Ranks</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-users"></i> <span>Staff</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -141,8 +154,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url(); ?>add-salary"><i class="fa fa-circle-o"></i> Add Salary</a></li>
+            <li><a href="<?php echo base_url(); ?>add-salary"><i class="fa fa-circle-o"></i> Add Allowance</a></li>
             <li><a href="<?php echo base_url(); ?>manage-salary"><i class="fa fa-circle-o"></i> Manage Salary</a></li>
+            <li><a href="<?php echo base_url(); ?>set-salary"><i class="fa fa-circle-o"></i> Set Salary</a></li>
           </ul>
         </li>
 

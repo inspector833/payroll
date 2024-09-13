@@ -46,8 +46,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Basic Salary</th>
-                    <th>Salary</th>
+                    <th>Single Spine monthly Salary</th>
+                    <th>Retention Premium</th>
                     <th>Allowance</th>
                     <th>Total Amount</th>
                     <th>Paid On</th>
@@ -59,13 +59,16 @@
                   if (isset($content)) :
                     $i = 1;
                     foreach ($content as $cnt) :
+                      $subTotal = $cnt['single_spine'] + $cnt['retention'] + $cnt['allowance'];
+				$taxAmount =(($cnt['tax'] /100 )*$subTotal);
+				$totalAmount = $subTotal - $taxAmount;
                   ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td>GHS<?php echo $cnt['basic_salary']; ?></td>
-                        <td>GHS<?php echo $cnt['calculated_salary']; ?></td> <!-- Calculated Salary -->
+                        <td>GHS<?php echo number_format($cnt['single_spine'],2); ?></td>
+                        <td>GHS<?php echo number_format($cnt['retention'],2); ?></td> <!-- Calculated Salary -->
                         <td>GHS<?php echo $cnt['allowance']; ?></td>
-                        <td>GHS<?php echo $cnt['allowance'] + $cnt['calculated_salary'] + $cnt['basic_salary']; ?></td>
+                        <td>GHS<?php echo $subTotal; ?></td>
 
                         <td><?php echo date('Y-m-d', strtotime($cnt['added_on'])); ?></td>
                         <td><a href="<?php echo base_url(); ?>salaryinvoice/<?php echo $cnt['id']; ?>" class="btn btn-success">Invoice</a></td>

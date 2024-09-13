@@ -311,6 +311,40 @@ INSERT INTO `department_tbl` (`id`, `department_name`, `added_on`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rank_tbl`
+--
+
+
+CREATE TABLE rank_tbl (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rank_name VARCHAR(255) NOT NULL,
+    percentage DECIMAL(5, 2) NOT NULL
+);
+
+--
+-- Dumping data for table `department_tbl`
+--
+
+INSERT INTO rank_tbl (rank_name, percentage) VALUES
+('Superintendent II', 10.00),
+('Superintendent I', 12.00),
+('Snr. Superintendent II', 14.00),
+('Snr. Superintendent I', 16.00),
+('Principal Superintendent', 18.00),
+('Assistant Director AD II', 20.00),
+('Assistant Director I', 22.00),
+('Deputy Director', 24.00),
+('Director I', 26.00),
+('Director General', 28.00),
+('Lecturer', 15.00),
+('Senior Lecturer', 18.00),
+('Associate Professor', 22.00),
+('Professor', 25.00),
+('Chair Professor', 30.00);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `leave_tbl`
 --
 
@@ -413,6 +447,7 @@ CREATE TABLE `staff_tbl` (
   `state` varchar(100) NOT NULL,
   `country` varchar(50) NOT NULL,
   `department_id` int(11) NOT NULL,
+  `rank_id` int(11) NOT NULL,
   `pic` varchar(150) NOT NULL DEFAULT 'default-pic.jpg',
   `added_by` int(11) NOT NULL,
   `updated_on` date NOT NULL,
@@ -423,15 +458,15 @@ CREATE TABLE `staff_tbl` (
 -- Dumping data for table `staff_tbl`
 --
 
-INSERT INTO `staff_tbl` (`id`, `staff_name`, `gender`, `email`, `mobile`, `dob`, `doj`, `address`, `city`, `state`, `country`, `department_id`, `pic`, `added_by`, `updated_on`, `added_on`) VALUES
-(2, 'Steven Askew', 'Male', 'steven@gmail.com', 7444440001, '1990-02-18', '2020-11-27', '3721  Hill Croft Farm Road', 'BURLINGTON', 'MI', 'United States', 1, 'smportrait.jpg', 0, '0000-00-00', '2021-05-27 15:37:03'),
-(3, 'Tatiana Breit', 'Female', 'tatiana@gmail.com', 7402222220, '1994-10-14', '2021-02-21', '3397  Happy Hollow Road', 'Jacksonville', 'NC', 'United States', 2, 'prtwm.jpg', 0, '0000-00-00', '2021-05-27 15:37:16'),
-(4, 'Christine Moore', 'Female', 'christine@gmail.com', 8888877777, '1994-08-01', '2020-01-15', '4047  Timbercrest Road', 'Anchorage', 'AK', 'United States', 3, 'christen-freeimg.jpg', 0, '0000-00-00', '2021-05-27 15:31:20'),
-(5, 'Liam Moore', 'Male', 'liam@gmail.com', 7410233333, '1994-12-02', '2021-04-04', '3474  Viking Drive', 'Worthington', 'OH', 'United States', 4, '7002489_preview.jpg', 1, '0000-00-00', '2021-05-27 13:55:22'),
-(6, 'George J Barnes', 'Male', 'barnes@gmail.com', 1010101010, '1988-02-03', '2021-01-13', '3079  Chardonnay Drive', 'Ocala', 'FL', 'United States', 2, 'skport.jpg', 1, '0000-00-00', '2021-05-27 15:28:48'),
-(7, 'Samuel Huntsman', 'Male', 'samuel@gmail.com', 7410000010, '1991-12-28', '2021-04-25', '2315  Cherry Tree Drive', 'Jacksonville', 'FL', 'United States', 5, 'dportrait.jpg', 1, '0000-00-00', '2021-05-27 16:52:18'),
-(8, 'Mark Heiden', 'Male', 'markh@gmail.com', 7070707069, '1990-02-12', '2021-02-04', '2190  Laurel Lane', 'Midland', 'TX', 'United States', 2, 'pauptr.jpg', 1, '0000-00-00', '2021-05-27 16:53:57'),
-(9, 'Angela Bridges', 'Female', 'angela@gmail.com', 7417417417, '1992-02-11', '2021-03-05', '3538 Melville Street', 'Jackson', 'TN', 'United States', 6, 'sm-freeimg.jpg', 1, '0000-00-00', '2021-05-27 17:29:36');
+INSERT INTO `staff_tbl` (`id`, `staff_name`, `gender`, `email`, `mobile`, `dob`, `doj`, `address`, `city`, `state`, `country`, `department_id`, `rank_id`, `pic`, `added_by`, `updated_on`, `added_on`) VALUES
+(2, 'Steven Askew', 'Male', 'steven@gmail.com', 7444440001, '1990-02-18', '2020-11-27', '3721  Hill Croft Farm Road', 'BURLINGTON', 'MI', 'United States', 1, 3, 'smportrait.jpg', 0, '0000-00-00', '2021-05-27 15:37:03'),
+(3, 'Tatiana Breit', 'Female', 'tatiana@gmail.com', 7402222220, '1994-10-14', '2021-02-21', '3397  Happy Hollow Road', 'Jacksonville', 'NC', 'United States', 2, 2, 'prtwm.jpg', 0, '0000-00-00', '2021-05-27 15:37:16'),
+(4, 'Christine Moore', 'Female', 'christine@gmail.com', 8888877777, '1994-08-01', '2020-01-15', '4047  Timbercrest Road', 'Anchorage', 'AK', 'United States', 3, 1, 'christen-freeimg.jpg', 0, '0000-00-00', '2021-05-27 15:31:20'),
+(5, 'Liam Moore', 'Male', 'liam@gmail.com', 7410233333, '1994-12-02', '2021-04-04', '3474  Viking Drive', 'Worthington', 'OH', 'United States', 4, 2, '7002489_preview.jpg', 1, '0000-00-00', '2021-05-27 13:55:22'),
+(6, 'George J Barnes', 'Male', 'barnes@gmail.com', 1010101010, '1988-02-03', '2021-01-13', '3079  Chardonnay Drive', 'Ocala', 'FL', 'United States', 2, 5, 'skport.jpg', 1, '0000-00-00', '2021-05-27 15:28:48'),
+(7, 'Samuel Huntsman', 'Male', 'samuel@gmail.com', 7410000010, '1991-12-28', '2021-04-25', '2315  Cherry Tree Drive', 'Jacksonville', 'FL', 'United States', 5, 8, 'dportrait.jpg', 1, '0000-00-00', '2021-05-27 16:52:18'),
+(8, 'Mark Heiden', 'Male', 'markh@gmail.com', 7070707069, '1990-02-12', '2021-02-04', '2190  Laurel Lane', 'Midland', 'TX', 'United States', 2, 3, 'pauptr.jpg', 1, '0000-00-00', '2021-05-27 16:53:57'),
+(9, 'Angela Bridges', 'Female', 'angela@gmail.com', 7417417417, '1992-02-11', '2021-03-05', '3538 Melville Street', 'Jackson', 'TN', 'United States', 6, 9, 'sm-freeimg.jpg', 1, '0000-00-00', '2021-05-27 17:29:36');
 
 --
 -- Indexes for dumped tables

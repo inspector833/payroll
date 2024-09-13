@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Salary
+        Ranks
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Salary</a></li>
-        <li class="active">Add Allowance</li>
+        <li><a href="#">Ranks</a></li>
+        <li class="active">Add Department</li>
       </ol>
     </section>
 
@@ -39,36 +39,30 @@
           <!-- general form elements -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Allowance</h3>
+              <h3 class="box-title">Add Rank</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('Salary/insert'); ?>
+            <form role="form" action="<?php echo base_url(); ?>insert-rank" method="POST">
               <div class="box-body">
                
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Department Name</label>
-                    <select class="form-control" name="slcdepartment" onchange="getstaff(this.value)">
-                      <option value="">Select</option>
-                        <?php
-                          if(isset($departments))
-                          {
-                            foreach($departments as $cnt)
-                            {
-                              print "<option value='".$cnt['id']."'>".$cnt['department_name']."</option>";
-                            }
-                          } 
-                        ?>
-                    </select>
+                    <input type="text" name="txtrank" class="form-control" placeholder="Rank Name">
+
+                    <br>
+
+                    <label for="exampleInputPassword1">Percentage</label>
+                    <input type="text" name="txtpercentage" class="form-control" placeholder="Percentage">
                   </div>
                 </div>
+                
               </div>
               <!-- /.box-body -->
-
-              <div id="salarydiv">
+              <div class="box-footer">
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
               </div>
-              
             </form>
           </div>
           <!-- /.box -->
@@ -80,30 +74,3 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <script>
-    function getstaff(dept) {
-            $.ajax({
-                type: "POST",
-                url:  "<?php echo site_url('Salary/get_salary_list'); ?>",
-                data: 'dept='+dept,
-                success: function(data){
-                    $('#salarydiv').html(data);
-                }
-            });
-        }
-  </script>
-
-  <script>
-    $(document).on('keyup','input.expenses',function(){
-      $expenses = $(this).parents('tr').find('.expenses');
-      $expenseTotal = $(this).parents('tr').find('#total');
-      $expenseTotal.val('0');
-      $.each($expenses,function(index,object){    
-        if($(object).val()!='')
-        {
-     $expenseTotal.val(parseInt($expenseTotal.val())+parseInt($(object).val()));
-        }
-      })
-    });
-  </script>

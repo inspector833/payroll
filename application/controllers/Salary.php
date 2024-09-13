@@ -50,6 +50,19 @@ class Salary extends CI_Controller {
         $this->load->view('admin/footer');
     }
 
+    public function set()
+    {
+        $this->load->model('Salary_model');
+    
+    // Retrieve the salary from the basic_salary_tbl
+    $data['salary'] = $this->Salary_model->get_basic_salary();
+    $this->load->view('admin/header');
+    // Load the view and pass the salary data
+    $this->load->view('admin/set-salary', $data);
+    $this->load->view('admin/footer');
+    
+    }
+
     public function view()
 {
     $staff = $this->session->userdata('userid');
@@ -60,36 +73,83 @@ class Salary extends CI_Controller {
 }
 
 
-    public function insert()
-    {
-        $id=$this->input->post('txtid');
-        $basic=$this->input->post('txtbasic');
-        $allowance=$this->input->post('txtallowance');
-        $total=$this->input->post('txttotal');
-        $added=$this->session->userdata('userid');
+    // public function insert()
+    // {
+    //     $id=$this->input->post('txtid');
+    //     $basic=$this->input->post('txtbasic');
+    //     $allowance=$this->input->post('txtallowance');
+    //     $total=$this->input->post('txttotal');
+    //     $added=$this->session->userdata('userid');
 
-        $salary=array();
-        for ($i=0; $i < count($id); $i++)
-        { 
-            if($total[$i]>0)
-            {
-                $data=$this->Salary_model->insert_salary(array('staff_id' => $id[$i],
+    //     $salary=array();
+    //     for ($i=0; $i < count($id); $i++)
+    //     { 
+    //         if($total[$i]>0)
+    //         {
+    //             $data=$this->Salary_model->insert_salary(array('staff_id' => $id[$i],
+    //                 'basic_salary' => $basic[$i],
+    //                 'allowance' => $allowance[$i],
+    //                 'total' => $total[$i],
+    //                 'added_by' => $added)
+    //             );
+    //         }
+    //     }
+        
+    //     if($this->db->affected_rows() > 0)
+    //     {
+    //         $this->session->set_flashdata('success', "Salary Added Succesfully"); 
+    //     }else{
+    //         $this->session->set_flashdata('error', "Sorry, Salary Adding Failed.");
+    //     }
+    //     redirect($_SERVER['HTTP_REFERER']);
+    // }
+
+    public function insert()
+{
+    $id = $this->input->post('txtid');
+    $basic = $this->input->post('txtbasic');
+    $allowance = $this->input->post('txtallowance');
+    $total = $this->input->post('txttotal');
+    $added = $this->session->userdata('userid');
+
+    for ($i = 0; $i < count($id); $i++) {
+        if ($total[$i] > 0) {
+            // Check if the staff already has a salary record
+            $existing_salary = $this->Salary_model->get_salary_by_staff_id($id[$i]);
+
+            if ($existing_salary) {
+                // If the salary exists, update it
+                $data = array(
                     'basic_salary' => $basic[$i],
                     'allowance' => $allowance[$i],
                     'total' => $total[$i],
-                    'added_by' => $added)
+                    'added_by' => $added,
+                    'updated_on' => date('Y-m-d H:i:s')
                 );
+                $this->Salary_model->update_salary($id[$i], $data);
+            } else {
+                // If the salary doesn't exist, insert a new record
+                $data = array(
+                    'staff_id' => $id[$i],
+                    'basic_salary' => $basic[$i],
+                    'allowance' => $allowance[$i],
+                    'total' => $total[$i],
+                    'added_by' => $added,
+                    'added_on' => date('Y-m-d H:i:s')
+                );
+                $this->Salary_model->insert_salary($data);
             }
         }
-        
-        if($this->db->affected_rows() > 0)
-        {
-            $this->session->set_flashdata('success', "Salary Added Succesfully"); 
-        }else{
-            $this->session->set_flashdata('error', "Sorry, Salary Adding Failed.");
-        }
-        redirect($_SERVER['HTTP_REFERER']);
     }
+
+    if ($this->db->affected_rows() > 0) {
+        $this->session->set_flashdata('success', "Salary updated/added successfully");
+    } else {
+        $this->session->set_flashdata('error', "Sorry, salary update/add failed.");
+    }
+    redirect($_SERVER['HTTP_REFERER']);
+}
+
 
     public function update()
     {
@@ -132,30 +192,48 @@ class Salary extends CI_Controller {
     {
         $dept = $_POST['dept'];
         $data=$this->Staff_model->select_staff_byDept($dept);
+        $salary_data = $this->Salary_model->get_department_salary($dept);
+
         if(isset($data)){
             print '<div class="box-body">
-            <div class="col-md-12">
+            <div class="col-md-6">
             <div class="table-responsive">
             <table class="table table-bordered table-striped">
             <thead>
                   <tr>
                     <th>Staff</th>
-                    <th>Basic Salary (GHS)</th>
+                     <th> </th>
+                    <th> </th>
                     <th>Allowance (GHS))</th>
-                    <th>Total (GHS))</th>
                   </tr>
                   </thead>
                   <tbody>';
 
             foreach($data as $d)
             {
+                $allowance = isset($d["allowance"]) ? $d["allowance"] : ''; // Default to empty if allowance is not set
+                $first_name = isset($d["first_name"]) ? $d["first_name"] : '';
+                $middle_name = isset($d["middle_name"]) ? $d["middle_name"] : '';
+                $last_name = isset($d["last_name"]) ? $d["last_name"] : '';
+                $staff_name = isset($d["staff_name"]) ? $d["staff_name"] : '';
+            
+                // Concatenate names if `first_name` is present
+                $full_name = !empty($first_name) 
+        ? htmlspecialchars($first_name . 
+            (!empty($middle_name) ? ' ' . $middle_name : '') . 
+            (!empty($last_name) ? ' ' . $last_name : '')
+          )
+        : $staff_name;
                 print '<tr>
-                <td>'.$d["staff_name"].'</td>
+                <td>' . $full_name . '</td>
+                <td>
+                <input type="hidden" name="txtsalary[]" class="form-control expenses" readonly value="'.$salary_data[0]['salary'].'" >
+            </td>
                 <td><input type="hidden" name="txtid[]" value="'.$d["id"].'">
-                    <input type="text" name="txtbasic[]" class="form-control expenses">
+                    <input type="hidden" name="txtbasic[]" class="form-control expenses">
                 </td>
-                <td><input type="text" name="txtallowance[]" class="form-control expenses"></td>
-                <td><input type="text" id="total" name="txttotal[]" class="form-control"></td>
+                <td><input type="text" name="txtallowance[]" value="' . htmlspecialchars($allowance) . '" class="form-control expenses"></td>
+                <td><input type="hidden" id="total" name="txttotal[]" class="form-control"></td>
                 </tr>';
             }
             print '</tbody>
@@ -183,5 +261,34 @@ class Salary extends CI_Controller {
     }
 
 
+    public function update_salary()
+{
+    // Load the Salary_model
+    $this->load->model('Salary_model');
 
+    // Check if form is submitted
+    if ($this->input->post()) {
+        // Get the new salary from the form input
+        $new_salary = $this->input->post('new_salary');
+
+        // Prepare the data array to update
+        $data = array(
+            'salary' => $new_salary
+        );
+
+        // Update the salary in the database
+        if($this->Salary_model->update_basic_salary($data)) {
+            // Set a success message
+            $this->session->set_flashdata('success', 'Salary updated successfully!');
+        } else {
+            // Set an error message if update fails
+            $this->session->set_flashdata('error', 'Failed to update salary!');
+        }
+
+        // Redirect back to the form or another page
+        redirect('Salary/set');
+    }
+}
+
+    
 }

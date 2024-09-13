@@ -29,30 +29,47 @@ class Department extends CI_Controller {
 
     public function insert()
     {
-        $department=$this->input->post('txtdepartment');
-        $data=$this->Department_model->insert_department(array('department_name'=>$department));
-        if($data==true)
-        {
-            $this->session->set_flashdata('success', "New Department Added Succesfully"); 
-        }else{
+        $department = $this->input->post('txtdepartment');
+        $salary = $this->input->post('txtsalary');  // Add this line to capture salary
+    
+        // Insert department and salary into the model
+        $data = $this->Department_model->insert_department(array(
+            'department_name' => $department,
+            'salary' => $salary  // Include salary in the data array
+        ));
+    
+        if ($data) {
+            $this->session->set_flashdata('success', "New Department Added Successfully");
+        } else {
             $this->session->set_flashdata('error', "Sorry, New Department Adding Failed.");
         }
         redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function update()
-    {
-        $id=$this->input->post('txtid');
-        $department=$this->input->post('txtdepartment');
-        $data=$this->Department_model->update_department(array('department_name'=>$department),$id);
-        if($this->db->affected_rows() > 0)
-        {
-            $this->session->set_flashdata('success', "Department Updated Succesfully"); 
-        }else{
-            $this->session->set_flashdata('error', "Sorry, Department Update Failed.");
-        }
-        redirect(base_url()."department/manage_department");
+{
+    $id = $this->input->post('txtid');
+    $department = $this->input->post('txtdepartment');
+    $salary = $this->input->post('txtsalary');  // Capture salary from input
+
+    // Prepare data for updating
+    $data = array(
+        'department_name' => $department,
+        'salary' => $salary  // Include salary in the data array
+    );
+
+    // Update department with new data
+    $this->Department_model->update_department($data, $id);
+
+    if ($this->db->affected_rows() > 0) {
+        $this->session->set_flashdata('success', "Department Updated Successfully");
+    } else {
+        $this->session->set_flashdata('error', "Sorry, Department Update Failed.");
     }
+
+    redirect(base_url() . "department/manage_department");
+}
+
 
 
     function edit($id)

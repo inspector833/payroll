@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Departments
+        Rank
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Departments</a></li>
-        <li class="active">Edit Department</li>
+        <li><a href="#">Rank</a></li>
+        <li class="active">Edit Rank</li>
       </ol>
     </section>
 
@@ -39,25 +39,25 @@
           <!-- general form elements -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Edit Department</h3>
+              <h3 class="box-title">Edit Rank</h3>
             </div>
             <!-- /.box-header -->
 
             <?php if(isset($content)): ?>
               <?php foreach($content as $cnt): ?>
                 <!-- form start -->
-                <form role="form" action="<?php echo base_url(); ?>update-department" method="POST">
+                <form role="form" action="<?php echo base_url(); ?>update-rank" method="POST">
                   <div class="box-body">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Department Name</label>
+                        <label>Rank Name</label>
                         <input type="hidden" name="txtid" value="<?php echo $cnt['id']; ?>" class="form-control">
-                        <input type="text" name="txtdepartment" value="<?php echo $cnt['department_name']; ?>" class="form-control" placeholder="Department Name">
+                        <input type="text" name="txtrank" value="<?php echo $cnt['rank_name']; ?>" class="form-control" placeholder="Rank Name">
 
                         <br>
 
 <label for="exampleInputPassword1">Salary</label>
-<input type="text" name="txtsalary" value="<?php echo $cnt['salary']; ?>" class="form-control" placeholder="Salary">
+<input type="text" name="txtpercentage" value="<?php echo $cnt['percentage']; ?>" class="form-control" placeholder="Percentage">
                       </div>
                     </div>
                     

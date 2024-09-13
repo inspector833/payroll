@@ -64,17 +64,28 @@ $route['edit-department/(:num)'] = 'department/edit/$1';
 $route['update-department'] = 'department/update';
 $route['delete-department/(:num)'] = 'department/delete/$1';
 
+// rank routes
+$route['add-rank'] = 'rank';
+$route['insert-rank'] = 'rank/insert';
+$route['manage-rank'] = 'rank/manage_rank';
+$route['edit-rank/(:num)'] = 'rank/edit/$1';
+$route['update-rank'] = 'rank/update';
+$route['delete-rank/(:num)'] = 'rank/delete/$1';
+
 //staff routes
 $route['add-staff'] = 'staff';
 $route['manage-staff'] = 'staff/manage';
 $route['insert-staff'] = 'staff/insert';
 $route['delete-staff/(:num)'] = 'staff/delete/$1';
 $route['edit-staff/(:num)'] = 'staff/edit/$1';
+$route['view-staff/(:num)'] = 'staff/view/$1';
 $route['update-staff'] = 'staff/update';
 
 //salary routes
 $route['add-salary'] = 'salary';
 $route['manage-salary'] = 'salary/manage';
+$route['set-salary'] = 'salary/set';
+$route['update-salary'] = 'salary/update';
 $route['view-salary'] = 'salary/view';
 $route['salary-invoice/(:num)'] = 'salary/invoice/$1';
 $route['print-invoice/(:num)'] = 'salary/invoice_print/$1';
@@ -87,3 +98,4 @@ $route['leave-approved/(:num)'] = 'leave/insert_approve/$1';
 $route['leave-rejected/(:num)'] = 'leave/insert_reject/$1';
 $route['view-leave'] = 'leave/view';
 $route['salaryinvoice/(:num)'] = 'salary/invoicestaff/$1';
+$route['view-staff/(:num)'] = 'staff/view/$1';

@@ -53,10 +53,62 @@
               <div class="box-body">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" name="txtname" class="form-control" placeholder="Full Name">
+                    <label>First Name</label>
+                    <input type="text" name="txtfname" class="form-control" placeholder="First Name">
                   </div>
                 </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Middle Name</label>
+                    <input type="text" name="txtmname" class="form-control" placeholder="Middle Name">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="txtlname" class="form-control" placeholder="Last Name">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Gender</label>
+                    <select class="form-control" name="slcgender">
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Others">Others</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Photo</label>
+                    <input type="file" name="filephoto" class="form-control">
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Rank</label>
+                    <select class="form-control" name="slcrank">
+                      <option value="">Select</option>
+                      <?php
+                      if(isset($rank))
+                      {
+                        foreach($rank as $cnt)
+                        {
+                          print "<option value='".$cnt['id']."'>".$cnt['rank_name']."</option>";
+                        }
+                      } 
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
 
                 <div class="col-md-6">
                   <div class="form-group">
@@ -76,17 +128,6 @@
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Gender</label>
-                    <select class="form-control" name="slcgender">
-                      <option value="">Select</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Others">Others</option>
-                    </select>
-                  </div>
-                </div>
 
                 <div class="col-md-6">
                   <div class="form-group">
@@ -102,13 +143,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Photo</label>
-                    <input type="file" name="filephoto" class="form-control">
-                  </div>
-                </div>
-
+                
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Date of Birth</label>
@@ -118,22 +153,22 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Date of Joining</label>
-                    <input type="date" name="txtdoj" class="form-control" placeholder="DOJ">
+                    <label>Date of Employment</label>
+                    <input type="date" name="txtdoj" class="form-control" placeholder="DOE">
                   </div>
                 </div>
                 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>City</label>
-                    <input type="text" name="txtcity" class="form-control" placeholder="City">
+                    <label>Region</label>
+                    <input type="text" name="txtcity" class="form-control" placeholder="Region">
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>State</label>
-                    <input type="text" name="txtstate" class="form-control" placeholder="State">
+                    <label>City/Town</label>
+                    <input type="text" name="txtstate" class="form-control" placeholder="City/Town">
                   </div>
                 </div>
 

@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.13
     </div>
-    <strong>&copy; <?php echo date("Y"); ?></strong> Payrll System AAMUSTED
+    <strong>&copy; <?php echo date("Y"); ?></strong> Payrll System 
   </footer>
 
 </div>

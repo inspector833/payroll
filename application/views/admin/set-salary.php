@@ -8,7 +8,7 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Salary</a></li>
-        <li class="active">Add Allowance</li>
+        <li class="active">Add Salary</li>
       </ol>
     </section>
 
@@ -39,30 +39,21 @@
           <!-- general form elements -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Add Allowance</h3>
+              <h3 class="box-title">Set Salary</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php echo form_open('Salary/insert'); ?>
+            <?php echo form_open('Salary/update_salary') ?>
               <div class="box-body">
                
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Department Name</label>
-                    <select class="form-control" name="slcdepartment" onchange="getstaff(this.value)">
-                      <option value="">Select</option>
-                        <?php
-                          if(isset($departments))
-                          {
-                            foreach($departments as $cnt)
-                            {
-                              print "<option value='".$cnt['id']."'>".$cnt['department_name']."</option>";
-                            }
-                          } 
-                        ?>
-                    </select>
-                  </div>
+                <input type="text" name="new_salary" value="<?php echo isset($salary) ? $salary : ''; ?>" class="form-control" placeholder="Enter Salary">
+                <div class="box-footer">
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
+              </div>
                 </div>
+
+                
               </div>
               <!-- /.box-body -->
 

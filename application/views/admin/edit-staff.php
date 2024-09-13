@@ -64,11 +64,28 @@
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label>Full Name</label>
-                          <input type="hidden" name="txtid" value="<?php echo $cnt['id'] ?>" class="form-control" placeholder="Full Name">
-                          <input type="text" name="txtname" value="<?php echo $cnt['staff_name'] ?>" class="form-control" placeholder="Full Name">
+                          <label>First Name</label>
+                          <input type="hidden" name="txtid" value="<?php echo $cnt['id'] ?>" class="form-control" placeholder="First Name">
+                          <input type="text" name="txtfname" value="<?php echo $cnt['first_name'] ?>" class="form-control" placeholder="First Name">
                         </div>
                       </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Middle Name</label>
+                          <input type="hidden" name="txtid" value="<?php echo $cnt['id'] ?>" class="form-control" placeholder="Middle Name">
+                          <input type="text" name="txtmname" value="<?php echo $cnt['middle_name'] ?>" class="form-control" placeholder="Middle Name">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Last Name</label>
+                          <input type="hidden" name="txtid" value="<?php echo $cnt['id'] ?>" class="form-control" placeholder="Last Name">
+                          <input type="text" name="txtlname" value="<?php echo $cnt['last_name'] ?>" class="form-control" placeholder="Last Name">
+                        </div>
+                      </div>
+                      
 
                       <div class="col-md-6">
                         <div class="form-group">
@@ -86,6 +103,30 @@
                                 }
                                 else{
                                   print "<option value='".$cnt1['id']."'>".$cnt1['department_name']."</option>";
+                                }
+                              }
+                            } 
+                            ?>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Rank</label>
+                          <select class="form-control" name="slcrank">
+                            <option value="">Select</option>
+                            <?php
+                            if(isset($rank))
+                            {
+                              foreach($rank as $cnt1)
+                              {
+                                if($cnt1['id']==$cnt['rank_id'])
+                                {
+                                  print "<option value='".$cnt1['id']."' selected>".$cnt1['rank_name']."</option>";
+                                }
+                                else{
+                                  print "<option value='".$cnt1['id']."'>".$cnt1['rank_name']."</option>";
                                 }
                               }
                             } 
@@ -131,14 +172,14 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Email</label>
-                          <input type="text" name="txtemail" value="<?php echo $cnt['email'] ?>" class="form-control" placeholder="Email" readonly>
+                          <input type="text" name="txtemail" value="<?php echo $cnt['email'] ?>" class="form-control" placeholder="Email" >
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Mobile</label>
-                          <input type="text" name="txtmobile" value="<?php echo $cnt['mobile'] ?>" class="form-control" placeholder="Mobile" readonly>
+                          <input type="text" name="txtmobile" value="<?php echo $cnt['mobile'] ?>" class="form-control" placeholder="Mobile" >
                         </div>
                       </div>
 
@@ -149,6 +190,9 @@
                         </div>
                       </div>
 
+                      
+
+                      
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Date of Birth</label>
